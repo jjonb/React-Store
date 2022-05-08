@@ -1,23 +1,20 @@
-import {React, useContext, useState} from 'react'
-import { CartContext } from '../App'
-import { useNavigate } from 'react-router-dom';
+import { React, useContext, useState } from "react";
+import { CartContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
-
   let total = 0;
-  const {Cart, setCart} = useContext(CartContext);
+  const { Cart, setCart } = useContext(CartContext);
   const [name, setName] = useState();
   const [shipping, setShipping] = useState();
   const [billing, setBilling] = useState();
   const [credit, setCredit] = useState();
 
- Cart.map((single) =>
-    total += (single.price * single.quantity)
-  );
+  Cart.map((single) => (total += single.price * single.quantity));
 
   let navigate = useNavigate();
 
-  function handleSubmit () {
+  function handleSubmit() {
     //Clears cart after user submits form
     setCart([]);
     console.log(name);
@@ -26,38 +23,37 @@ export default function Checkout() {
     console.log(credit);
     navigate("../", { replace: true });
   }
- 
 
   return (
     <div id="Checkout_container">
       <form onSubmit={handleSubmit} id="form">
         <label for="name">Name: </label>
         <input
-            id="name"
-            type="text"
-            onChange = {(event) => setName(event.target.value)}
+          id="name"
+          type="text"
+          onChange={(event) => setName(event.target.value)}
         />
         <label for="name">Shipping address: </label>
         <input
-            id="name"
-            type="text"
-            onChange = {(event) => setShipping(event.target.value)}
+          id="name"
+          type="text"
+          onChange={(event) => setShipping(event.target.value)}
         />
         <label for="name">Billing address: </label>
         <input
-            id="name"
-            type="text"
-            onChange = {(event) => setBilling(event.target.value)}
+          id="name"
+          type="text"
+          onChange={(event) => setBilling(event.target.value)}
         />
         <label for="name">Credit card: </label>
         <input
-            id="name"
-            type="text"
-            onChange = {(event) => setCredit(event.target.value)}
+          id="name"
+          type="text"
+          onChange={(event) => setCredit(event.target.value)}
         />
         <div>Total cost: ${total}</div>
         <button type="submit">Place order</button>
       </form>
     </div>
-  )
+  );
 }
